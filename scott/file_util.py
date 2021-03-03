@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import os
 import json
-import logging
+from log_handle import logger
 
 from win32com import client as wincom_client
 
@@ -26,13 +26,13 @@ read_json() --- 讀 json file
 
 
 def get_file_version(file_path):
-    logging.info('Get file version of [%s]', file_path)
+    logger.info('Get file version of [%s]', file_path)
     if not os.path.isfile(file_path):
         raise FileNotFoundError('{!r} is not found.'.format(file_path))
 
     wincom_obj = wincom_client.Dispatch('Scripting.FileSystemObject')
     version = wincom_obj.GetFileVersion(file_path)
-    logging.info('The file version of [%s] is %s', file_path, version)
+    logger.info('The file version of [%s] is %s', file_path, version)
     return version.strip()
 
 
