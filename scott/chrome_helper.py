@@ -12,7 +12,7 @@ CHROME_DRIVER_FOLDER = r"E:\BaiduNetdiskDownload\scott\webdrive\scott\chrome"
 CHROME_DRIVER_MAPPING_FILE = r"{}\mapping.json".format(CHROME_DRIVER_FOLDER)
 CHROME_DRIVER_EXE = r"{}\chromedriver.exe".format(CHROME_DRIVER_FOLDER)
 CHROME_DRIVER_ZIP = r"{}\chromedriver_win32.zip".format(CHROME_DRIVER_FOLDER)
-if os.path.exists(CHROME_DRIVER_FOLDER):
+if not os.path.exists(CHROME_DRIVER_FOLDER):
     os.makedirs(CHROME_DRIVER_FOLDER)
 
 
