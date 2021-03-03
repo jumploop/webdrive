@@ -12,6 +12,8 @@ CHROME_DRIVER_FOLDER = r"E:\BaiduNetdiskDownload\scott\webdrive\scott\chrome"
 CHROME_DRIVER_MAPPING_FILE = r"{}\mapping.json".format(CHROME_DRIVER_FOLDER)
 CHROME_DRIVER_EXE = r"{}\chromedriver.exe".format(CHROME_DRIVER_FOLDER)
 CHROME_DRIVER_ZIP = r"{}\chromedriver_win32.zip".format(CHROME_DRIVER_FOLDER)
+if os.path.exists(CHROME_DRIVER_FOLDER):
+    os.makedirs(CHROME_DRIVER_FOLDER)
 
 
 def get_chrome_driver_major_version():
@@ -48,11 +50,13 @@ def unzip_driver_to_target_path(src_file, dest_path):
         zip_ref.extractall(dest_path)
     logger.info("Unzip [{}] -> [{}]".format(src_file, dest_path))
 
+
 def read_driver_mapping_file():
     driver_mapping_dict = {}
     if os.path.exists(CHROME_DRIVER_MAPPING_FILE):
         driver_mapping_dict = file_util.read_json(CHROME_DRIVER_MAPPING_FILE)
     return driver_mapping_dict
+
 
 def check_browser_driver_available():
     chrome_major_ver = get_chrome_driver_major_version()
