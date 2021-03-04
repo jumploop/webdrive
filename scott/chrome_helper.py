@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
-import json
+import shutil
 from log_handle import logger
 import zipfile
 import requests
@@ -49,6 +49,8 @@ def unzip_driver_to_target_path(src_file, dest_path):
     with zipfile.ZipFile(src_file, 'r') as zip_ref:
         zip_ref.extractall(dest_path)
     logger.info("Unzip [{}] -> [{}]".format(src_file, dest_path))
+    shutil.copy('chrome/chromedriver.exe', 'driver/')
+    logger.info('Copy {} to {}'.format('chrome/chromedriver.exe', 'driver/'))
 
 
 def read_driver_mapping_file():

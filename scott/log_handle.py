@@ -8,7 +8,7 @@ from datetime import datetime
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
-file_handler = logging.handlers.TimedRotatingFileHandler('chrome.log', when='midnight', interval=1, backupCount=7)
+file_handler = logging.handlers.TimedRotatingFileHandler('chrome.log', when='D', interval=1, backupCount=10)
 file_handler.setFormatter(logging.Formatter("%(asctime)s - %(levelname)s - %(filename)s[%(lineno)d] messages: %(message)s"))
 
 console_handler = logging.StreamHandler()
