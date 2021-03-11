@@ -3,13 +3,13 @@
 
 import logging
 import logging.handlers
-from datetime import datetime
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
-file_handler = logging.handlers.TimedRotatingFileHandler('chrome.log', when='D', interval=1, backupCount=10)
-file_handler.setFormatter(logging.Formatter("%(asctime)s - %(levelname)s - %(filename)s[%(lineno)d] messages: %(message)s"))
+file_handler = logging.handlers.TimedRotatingFileHandler('log/chrome.log', when='D', interval=1, backupCount=10)
+file_handler.setFormatter(
+    logging.Formatter("%(asctime)s - %(levelname)s - %(filename)s[%(lineno)d] messages: %(message)s"))
 
 console_handler = logging.StreamHandler()
 console_handler.setLevel(logging.INFO)

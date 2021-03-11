@@ -28,6 +28,7 @@ read_json() --- 讀 json file
 def get_file_version(file_path):
     logger.info('Get file version of [%s]', file_path)
     if not os.path.isfile(file_path):
+        logger.error('{!r} is not found.'.format(file_path))
         raise FileNotFoundError('{!r} is not found.'.format(file_path))
 
     wincom_obj = wincom_client.Dispatch('Scripting.FileSystemObject')
