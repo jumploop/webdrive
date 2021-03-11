@@ -7,6 +7,7 @@ import zipfile
 import requests
 import file_util
 
+# https://medium.com/drunk-wis/python-selenium-chrome-browser-%E8%88%87-driver-%E6%83%B1%E4%BA%BA%E7%9A%84%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86-cbaf1d1861ce
 CHROME_DRIVER_BASE_URL = "https://chromedriver.storage.googleapis.com"
 CHROME_DRIVER_FOLDER = r"chrome"
 CHROME_DRIVER_MAPPING_FILE = r"{}\mapping.json".format(CHROME_DRIVER_FOLDER)
