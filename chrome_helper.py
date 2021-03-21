@@ -13,8 +13,11 @@ CHROME_DRIVER_FOLDER = r"chrome"
 CHROME_DRIVER_MAPPING_FILE = r"{}\mapping.json".format(CHROME_DRIVER_FOLDER)
 CHROME_DRIVER_EXE = r"{}\chromedriver.exe".format(CHROME_DRIVER_FOLDER)
 CHROME_DRIVER_ZIP = r"{}\chromedriver_win32.zip".format(CHROME_DRIVER_FOLDER)
-if not os.path.exists(CHROME_DRIVER_FOLDER):
-    os.makedirs(CHROME_DRIVER_FOLDER)
+
+
+def init_dir():
+    if not os.path.exists(CHROME_DRIVER_FOLDER):
+        os.makedirs(CHROME_DRIVER_FOLDER)
 
 
 def get_chrome_driver_major_version():
@@ -89,4 +92,5 @@ def check_browser_driver_available():
 
 
 if __name__ == "__main__":
+    init_dir()
     check_browser_driver_available()
