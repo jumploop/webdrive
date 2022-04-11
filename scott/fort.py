@@ -305,10 +305,10 @@ class Fort:
 
     def save_info(self):
         print("======================")
-        print("ID Number ==> {}".format(self.id_number))
-        print("PIN number ==> {}".format(self.PIN))
-        print("Fort Scott emailID ==> {}".format(self.fort_email))
-        print("Password ==> {}".format(self.password))
+        print(f"ID Number ==> {self.id_number}")
+        print(f"PIN number ==> {self.PIN}")
+        print(f"Fort Scott emailID ==> {self.fort_email}")
+        print(f"Password ==> {self.password}")
         print("=========================")
         print("all info are saved!")
 

@@ -86,18 +86,19 @@ class AccountDetail:
                 (By.XPATH, '/html/body/div[1]/div/div[2]/div[3]/div/ul[1]/li[2]/p[1]/a'))).text
 
     def getInfo(self):
-        info = {}
         self._generate_names()
         self._generate_ssn()
         self._generate_phone_number()
         print("Done!")
-        info["firstname"] = self._firstname
-        info["lastname"] = self._lastname
-        info["sex"] = self._sex
-        info["ssn"] = self._ssn
-        info["fathername"] = self._fatherName
-        info["phone_num"] = self._phone_num
-        info["parent_phone"] = self._parent_phone_num
+        info = {
+            "firstname": self._firstname,
+            "lastname": self._lastname,
+            "sex": self._sex,
+            "ssn": self._ssn,
+            "fathername": self._fatherName,
+            "phone_num": self._phone_num,
+            "parent_phone": self._parent_phone_num,
+        }
 
         self.driver.quit()
         return info

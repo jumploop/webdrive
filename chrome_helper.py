@@ -10,9 +10,9 @@ import file_util
 # https://medium.com/drunk-wis/python-selenium-chrome-browser-%E8%88%87-driver-%E6%83%B1%E4%BA%BA%E7%9A%84%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86-cbaf1d1861ce
 CHROME_DRIVER_BASE_URL = "https://chromedriver.storage.googleapis.com"
 CHROME_DRIVER_FOLDER = r"chrome"
-CHROME_DRIVER_MAPPING_FILE = r"{}\mapping.json".format(CHROME_DRIVER_FOLDER)
-CHROME_DRIVER_EXE = r"{}\chromedriver.exe".format(CHROME_DRIVER_FOLDER)
-CHROME_DRIVER_ZIP = r"{}\chromedriver_win32.zip".format(CHROME_DRIVER_FOLDER)
+CHROME_DRIVER_MAPPING_FILE = f"{CHROME_DRIVER_FOLDER}\\mapping.json"
+CHROME_DRIVER_EXE = f"{CHROME_DRIVER_FOLDER}\\chromedriver.exe"
+CHROME_DRIVER_ZIP = f"{CHROME_DRIVER_FOLDER}\\chromedriver_win32.zip"
 
 
 def init_dir():
@@ -30,8 +30,7 @@ def get_chrome_driver_major_version():
 
 
 def get_latest_driver_version(browser_ver):
-    latest_api = "{}/LATEST_RELEASE_{}".format(
-        CHROME_DRIVER_BASE_URL, browser_ver)
+    latest_api = f"{CHROME_DRIVER_BASE_URL}/LATEST_RELEASE_{browser_ver}"
     logger.info(f'latest api is {latest_api}')
     resp = requests.get(latest_api)
     lastest_driver_version = resp.text.strip()
@@ -40,8 +39,7 @@ def get_latest_driver_version(browser_ver):
 
 
 def download_driver(driver_ver, dest_folder):
-    download_api = "{}/{}/chromedriver_win32.zip".format(
-        CHROME_DRIVER_BASE_URL, driver_ver)
+    download_api = f"{CHROME_DRIVER_BASE_URL}/{driver_ver}/chromedriver_win32.zip"
     logger.info(f'download api is {download_api}')
     dest_path = os.path.join(dest_folder, os.path.basename(download_api))
     resp = requests.get(download_api, stream=True, timeout=300)
@@ -57,11 +55,11 @@ def download_driver(driver_ver, dest_folder):
 def unzip_driver_to_target_path(src_file, dest_path):
     with zipfile.ZipFile(src_file, 'r') as zip_ref:
         zip_ref.extractall(dest_path)
-    logger.info("Unzip [{}] -> [{}]".format(src_file, dest_path))
+    logger.info(f"Unzip [{src_file}] -> [{dest_path}]")
     src = 'chrome/chromedriver.exe'
     dest = 'scott/driver/'
     shutil.copy(src, dest)
-    logger.info('Copy {} to {}'.format(src, dest))
+    logger.info(f'Copy {src} to {dest}')
 
 
 def read_driver_mapping_file():
@@ -84,10 +82,10 @@ def check_browser_driver_available():
         mapping_dict = {
             chrome_major_ver: {
                 "driver_path": CHROME_DRIVER_EXE,
-                "driver_version": driver_ver
+                "driver_version": driver_ver,
             }
-        }
-        mapping_dict.update(mapping_dict)
+        } | mapping_dict
+
         file_util.write_json(CHROME_DRIVER_MAPPING_FILE, mapping_dict)
 
 

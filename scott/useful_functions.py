@@ -10,7 +10,7 @@ from selenium.webdriver.common.keys import Keys
 
 
 def new_tab(driver, url):
-    driver.execute_script('''window.open("{}","_blank");'''.format(url))
+    driver.execute_script(f'''window.open("{url}","_blank");''')
 
 
 def clear():
@@ -37,19 +37,27 @@ def grab_username_from_email(email):
 
 def random_name(stringlength):
     lettersAndDigits = string.ascii_letters
-    return ''.join(secrets.choice(lettersAndDigits) for i in range(stringlength)).lower().title()
+    return (
+        ''.join(secrets.choice(lettersAndDigits) for _ in range(stringlength))
+        .lower()
+        .title()
+    )
 
 
 def username_generator(stringlength):
     # Generate a random string of letters and digits
     lettersAndDigits = string.ascii_letters + string.digits
-    return ''.join(secrets.choice(lettersAndDigits) for i in range(stringlength)).lower()
+    return ''.join(
+        secrets.choice(lettersAndDigits) for _ in range(stringlength)
+    ).lower()
 
 
 def password_Generator(stringlength):
-    letter_digit_symbol = string.ascii_letters + string.digits[1:] + str('@#$%') * 2
+    letter_digit_symbol = string.ascii_letters + string.digits[1:] + '@#$%' * 2
     letter_digit_symbol = ''.join(random.sample(letter_digit_symbol, len(letter_digit_symbol)))
-    return ''.join(secrets.choice(letter_digit_symbol) for i in range(stringlength))
+    return ''.join(
+        secrets.choice(letter_digit_symbol) for _ in range(stringlength)
+    )
 
 
 def random_four_digit_PIN():
@@ -57,7 +65,7 @@ def random_four_digit_PIN():
 
 
 def dot_trick(username):
-    emails = list()
+    emails = []
 
     username_length = len(username)
     combinations = pow(2, username_length - 1)
@@ -65,11 +73,11 @@ def dot_trick(username):
     padding = "{0:0" + str(username_length - 1) + "b}"
     with open('gmail_id.txt', 'w') as txtfile:
         txtfile.write(username + '\n')
-        for i in range(0, combinations):
+        for i in range(combinations):
             bin = padding.format(i)
             full_email = ""
 
-            for j in range(0, username_length - 1):
+            for j in range(username_length - 1):
                 full_email += (username[j])
                 if bin[j] == "1":
                     full_email += "."
@@ -117,15 +125,15 @@ def get_tabs_info(driver):
 
 def switch_to(driver, title_or_url):
     opened_tabs = get_tabs_info(driver)
-    p = r'\b({})\b'.format(title_or_url)
+    p = f'\\b({title_or_url})\\b'
     prog = re.compile(p)
     handle = [v for k, v in opened_tabs.items() if prog.search(k)].pop()
     time.sleep(2)
 
     try:
-        print("Trying to switch to {}".format(title_or_url))
+        print(f"Trying to switch to {title_or_url}")
         driver.switch_to.window(handle)
     except InvalidArgumentException:
-        print("please check there is no such title named '{}'".format(title_or_url))
-        print("Currently opened tabs are {}".format(opened_tabs.keys()))
+        print(f"please check there is no such title named '{title_or_url}'")
+        print(f"Currently opened tabs are {opened_tabs.keys()}")
         print(opened_tabs)
